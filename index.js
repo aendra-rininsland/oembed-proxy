@@ -10,6 +10,8 @@
 let app = require('express')();
 let oembed = require('oembed');
 
+app.use(require('cors')());
+
 if (process.env['EMBEDLY_KEY']) {
   oembed.EMBEDLY_KEY = process.env['EMBEDLY_KEY'];
 }
