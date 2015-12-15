@@ -14,7 +14,7 @@ if (process.env['EMBEDLY_KEY']) {
   oembed.EMBEDLY_KEY = process.env['EMBEDLY_KEY'];
 }
 
-app.get('/:url*', (req, res) => {
+app.get('/:url(*)', (req, res) => {
   oembed.fetch(req.params.url, {}, (err, result) => {
     res.send(result);
   });
