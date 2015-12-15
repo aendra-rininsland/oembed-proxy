@@ -43,7 +43,7 @@ app.get('/:url/:format?', (req, res) => {
   }
 });
 
-let server = app.listen(process.env['port'] || 3030, () => {
+let server = app.listen(process.env.PORT || 3030, () => {
   let host = server.address().address;
   let port = server.address().port;
   console.log(`oEmbed Proxy started listening at ${host} on ${port}`);
