@@ -14,33 +14,10 @@ if (process.env['EMBEDLY_KEY']) {
   oembed.EMBEDLY_KEY = process.env['EMBEDLY_KEY'];
 }
 
-app.get('/:url/:format?', (req, res) => {
-  switch(req.params.format) {
-    case 'json':
-    oembed.discover(req.params.url, (err, result) => {
-      if (!result['application/json+oembed']) res.send('No JSON oEmbed tag found.');
-
-      oembed.fetchJSON(result['application/json+oembed'], (err, result) => {
-        res.send(result);
-      });
-    });
-
-    break;
-    case 'xml':
-    oembed.discover(req.params.url, (err, result) => {
-      if (!result['text/xml+oembed']) res.send('No XML oEmbed tag found.');
-
-      oembed.fetchXML(result['text/xml+oembed'], (err, result) => {
-        res.send(result);
-      });
-    });
-    break;
-    default:
-    oembed.fetch(req.params.url, {}, (err, result) => {
-      res.send(result);
-    });
-    break;
-  }
+app.get('/:url*', (req, res) => {
+  oembed.fetch(req.params.url, {}, (err, result) => {
+    res.send(result);
+  });
 });
 
 let server = app.listen(process.env.PORT || 3030, () => {
